@@ -37,7 +37,11 @@ function! s:startServer()
     call extend(l:args, ['--custom-css', l:css])
   endfor
 
-  call extend(l:args, ['--working-directory', getcwd()])
+  if exists('g:markdown_composer_working_dir')
+    call extend(l:args, ['--working-directory', g:markdown_composer_working_dir])
+  else
+    call extend(l:args, ['--working-directory', getcwd()])
+  endif
 
   let s:file = expand('%:p')
   if filereadable(s:file)
